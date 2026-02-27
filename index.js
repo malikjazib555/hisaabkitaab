@@ -561,6 +561,7 @@ app.post('/api/app/upgrade-confirm-stripe', authenticateToken, (req, res) => {
 // ============================================
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
+const puppeteer = require('puppeteer');
 
 let waClientReady = false;
 let waQrCodeDataUrl = null;
@@ -569,12 +570,12 @@ const waClient = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
     puppeteer: {
         headless: true,
+        executablePath: puppeteer.executablePath(),
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
             '--disable-gpu',
-            '--disable-dev-shm-usage',
             '--no-zygote',
             '--single-process'
         ]
