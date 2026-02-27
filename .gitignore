@@ -4,3 +4,4 @@ node_modules/
 *.log
 production.db
 db.json
+.cache
