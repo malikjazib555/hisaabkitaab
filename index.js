@@ -570,7 +570,7 @@ const waClient = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
     puppeteer: {
         headless: true,
-        executablePath: puppeteer.executablePath(),
+        executablePath: process.env.CHROME_BIN || process.env.PUPPETEER_EXECUTABLE_PATH || (process.platform === 'linux' ? '/usr/bin/google-chrome-stable' : puppeteer.executablePath()),
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',

@@ -1,5 +1,8 @@
 [phases.setup]
-nixPkgs = ["...", "nss", "freetype", "harfbuzz", "ca-certificates", "ttf-liberation"]
+nixPkgs = ["nodejs", "google-chrome-stable"]
+
+[phases.build]
+cmds = ["npm install"]
 
 [start]
 cmd = "node index.js"
