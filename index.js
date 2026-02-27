@@ -568,16 +568,15 @@ let waQrCodeDataUrl = null;
 const waClient = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
     puppeteer: {
-        headless: true,
-        executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome',
+        headless: 'new',
+        executablePath: '/usr/bin/chromium',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
             '--disable-gpu',
-            '--disable-features=IsolateOrigins,site-per-process',
-            '--disable-site-isolation-trials',
-            '--disable-extensions'
+            '--single-process',
+            '--no-zygote'
         ]
     }
 });
