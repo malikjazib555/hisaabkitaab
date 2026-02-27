@@ -569,13 +569,12 @@ const waClient = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
     puppeteer: {
         headless: true,
-        executablePath: '/usr/bin/chromium',
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-gpu',
-            '--disable-features=IsolateOrigins,site-per-process'
+            '--disable-gpu'
         ]
     }
 });
