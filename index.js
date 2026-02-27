@@ -566,11 +566,27 @@ const puppeteer = require('puppeteer');
 let waClientReady = false;
 let waQrCodeDataUrl = null;
 
+const fs = require('fs');
 const waClient = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
     puppeteer: {
         headless: true,
-        executablePath: process.env.CHROME_BIN || process.env.PUPPETEER_EXECUTABLE_PATH || (process.platform === 'linux' ? '/usr/bin/google-chrome-stable' : puppeteer.executablePath()),
+        executablePath: (() => {
+            if (process.env.CHROME_BIN) return process.env.CHROME_BIN;
+            if (process.env.PUPPETEER_EXECUTABLE_PATH) return process.env.PUPPETEER_EXECUTABLE_PATH;
+            if (process.platform === 'linux') {
+                const paths = [
+                    '/usr/bin/chromium',
+                    '/usr/bin/chromium-browser',
+                    '/usr/bin/google-chrome-stable'
+                ];
+                for (const p of paths) {
+                    if (fs.existsSync(p)) return p;
+                }
+                return 'chromium'; // Fallback to PATH
+            }
+            return puppeteer.executablePath();
+        })(),
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
