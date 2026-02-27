@@ -673,6 +673,11 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5005;
+
+app.get('/', (req, res) => {
+    res.send("Hisaab Kitaab Licensing Backend is Running Live!");
+});
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Cloud Licensing Server running perfectly secured on Port ${PORT}`);
 });
