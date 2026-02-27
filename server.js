@@ -672,7 +672,7 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 });
 
-const PORT = 5005;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 5005;
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Cloud Licensing Server running perfectly secured on Port ${PORT}`);
 });
